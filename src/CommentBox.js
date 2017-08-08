@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import $ from "jquery-ajax";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
+import Comment from "./Comment";
 import style from "./style";
 
 class CommentBox extends Component {
@@ -42,7 +43,7 @@ class CommentBox extends Component {
       method: "POST",
       url: this.props.url,
       data: comment
-    }).catch(err => {
+    }).then(err => {
       console.error(err);
       this.setState({
         data: comments
@@ -83,14 +84,28 @@ class CommentBox extends Component {
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   }
   render() {
+    let handleCommentDelete = this.handleCommentDelete;
+    let handleCommentUpdate = this.handleCommentUpdate;
+
+    let comments = this.state.data.map(function(comment) {
+      return (
+        <Comment
+          key={comment["_id"]}
+          author={comment.author}
+          text={comment.text}
+          uniqueID={comment["_id"]}
+          onCommentDelete={handleCommentDelete}
+          onCommentUpdate={handleCommentUpdate}
+        />
+      );
+    });
+
     return (
       <div style={style.commentBox}>
         <h2 style={style.title}>Comments:</h2>
-        <CommentList
-          onCommentDelete={this.handleCommentDelete}
-          onCommentUpdate={this.handleCommentUpdate}
-          data={this.state.data}
-        />
+        <CommentList>
+          {comments}
+        </CommentList>
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );

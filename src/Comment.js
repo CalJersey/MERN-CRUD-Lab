@@ -50,7 +50,7 @@ class Comment extends Component {
     this.setState({ author: e.target.value });
   }
   rawMarkup() {
-    let rawMarkup = marked(this.props.children.toString());
+    let rawMarkup = marked(this.props.text.toString());
     return { __html: rawMarkup };
   }
   render() {
