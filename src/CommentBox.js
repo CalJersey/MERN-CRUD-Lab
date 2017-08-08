@@ -24,13 +24,14 @@ class CommentBox extends Component {
     }).then(
       res => {
         this.setState({
-          data: res
+          data: res.comments
         });
       },
       err => {
         console.log("error", err);
       }
     );
+    console.log(this.state.data);
   }
   handleCommentSubmit(comment) {
     let comments = this.state.data;
@@ -86,7 +87,7 @@ class CommentBox extends Component {
   render() {
     let handleCommentDelete = this.handleCommentDelete;
     let handleCommentUpdate = this.handleCommentUpdate;
-
+    console.log(this.state.data);
     let comments = this.state.data.map(function(comment) {
       return (
         <Comment

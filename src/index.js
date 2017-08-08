@@ -1,10 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import CommentBox from './CommentBox';
+import React from "react";
+import ReactDOM from "react-dom";
+import CommentBox from "./CommentBox";
 
 ReactDOM.render(
   <CommentBox
-    url='http://localhost:3001/api/comments'
-    pollInterval={2000} />,
-  document.getElementById('root')
+    url="https://mern-comment-box-api.herokuapp.com/comments"
+    pollInterval={2000}
+  />,
+  document.getElementById("root")
 );
